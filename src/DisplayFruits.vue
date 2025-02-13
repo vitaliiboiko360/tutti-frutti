@@ -6,7 +6,7 @@ const { data } = defineProps(['data']);
 <template>
   <div :class="$style.outerContainer">
     <div>
-      <div v-for="(fruit, index) in data" :key="index">
+      <div v-for="(fruit, index) in data" :key="index" :class="$style.cardWrap">
         <FruitCard :fruit />
       </div>
     </div>
@@ -16,5 +16,8 @@ const { data } = defineProps(['data']);
 <style module>
 .outerContainer {
   display: grid;
+}
+.cardWrap {
+  width: fit-content;
 }
 </style>
