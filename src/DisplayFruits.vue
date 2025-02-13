@@ -1,13 +1,20 @@
 <script setup>
+import FruitCard from './FruitCard.vue';
 const { data } = defineProps(['data']);
 </script>
 
 <template>
-  <div>
-    <div v-for="(element, index) in data" :key="index">
-      <p>
-        {{ element.name }}
-      </p>
+  <div :class="$style.outerContainer">
+    <div>
+      <div v-for="(fruit, index) in data" :key="index">
+        <FruitCard :fruit />
+      </div>
     </div>
   </div>
 </template>
+
+<style module>
+.outerContainer {
+  display: grid;
+}
+</style>
