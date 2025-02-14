@@ -13,14 +13,33 @@ const { fruit } = defineProps(['fruit']);
     </div>
     <div :class="$style.detailsInfo">
       <div :class="$style.firstColumn">
-        <p>family:</p>
-        <p>order:</p>
-        <p>genus:</p>
+        <p>group:</p>
+        <!-- <p>order:</p>
+        <p>genus:</p> -->
       </div>
       <div>
         <p>{{ fruit.family }}</p>
-        <p>{{ fruit.order }}</p>
-        <p>{{ fruit.genus }}</p>
+        <!-- <p>{{ fruit.order }}</p>
+        <p>{{ fruit.genus }}</p> -->
+      </div>
+    </div>
+    <div :class="$style.nutritionsDetails">
+      <p>nutritions:</p>
+      <div :class="$style.nutritionsRows">
+        <div :class="$style.nutritionsLabels">
+          <p>calories</p>
+          <p>fat</p>
+          <p>sugar</p>
+          <p>carbohydrates</p>
+          <p>protein</p>
+        </div>
+        <div>
+          <p>{{ fruit.nutritions.calories }}</p>
+          <p>{{ fruit.nutritions.fat }}</p>
+          <p>{{ fruit.nutritions.sugar }}</p>
+          <p>{{ fruit.nutritions.carbohydrates }}</p>
+          <p>{{ fruit.nutritions.protein }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -43,12 +62,28 @@ const { fruit } = defineProps(['fruit']);
 .favouritesBlock {
   align-self: flex-end;
 }
+.nutritionsDetails {
+  font-size: 0.9rem;
+  p {
+    margin: 0;
+  }
+}
+.nutritionsRows {
+  display: flex;
+  margin-left: 0.8rem;
+  div p {
+    margin: 0.1rem 0;
+  }
+}
+.nutritionsLabels {
+  margin-right: 1rem;
+}
 .fruitItem {
   padding-left: 1rem;
   padding-top: 1rem;
   padding-right: 1rem;
   margin-bottom: 2rem;
-  height: 14rem;
+  height: 15rem;
   width: 14rem;
   --parent-border-color: #e5e5e5;
   --color-snow: #fffafa;
@@ -76,9 +111,8 @@ const { fruit } = defineProps(['fruit']);
     top: -2px;
     z-index: -1;
   }
-
-  div div p {
+  /* div div p {
     margin: 0.5rem 0;
-  }
+  } */
 }
 </style>
