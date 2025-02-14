@@ -1,9 +1,16 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const refImg = ref();
+const onClick = () => {
+  console.log(refImg.value);
+};
+</script>
 
 <template>
   <div>
-    <button :class="$style.buttonFavourites">
-      <img src="/star.svg" />
+    <button @click="onClick" :class="$style.buttonFavourites">
+      <img :ref="(el) => (refImg = el)" src="star.svg" />
     </button>
   </div>
 </template>
