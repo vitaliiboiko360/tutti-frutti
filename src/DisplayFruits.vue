@@ -1,12 +1,64 @@
 <script setup>
 import FruitCard from './FruitCard.vue';
+import Filter from './Filter.vue';
 const { data } = defineProps(['data']);
-</script>
 
+const calories = defineModel('calories', { number: true });
+const fat = defineModel('fat');
+const sugar = defineModel('sugar');
+const carbohydrates = defineModel('carbohydrates');
+const protein = defineModel('protein');
+const fruitsToDisplay = ref(data);
+
+watch([calories, fat, sugar], () => {
+  console.log(`${calories.value}  ${fat.value} ${sugar.value}`);
+  fruitsToDisplay.value = data.filter((fruit) => {
+    return (
+      (typeof calories.value == 'undefined'
+        ? true
+        : fruit.nutritions.calories <= calories.value) &&
+      (typeof fat.value == 'undefined'
+        ? true
+        : fruit.nutritions.fat <= fat.value) &&
+      (typeof sugar.value == 'undefined'
+        ? true
+        : fruit.nutritions.sugar <= sugar.value)
+    );
+  });
+});
+</script>
+<!-- {
+    "name": "Persimmon",
+    "id": 52,
+    "family": "Ebenaceae",
+    "order": "Rosales",
+    "genus": "Diospyros",
+    "nutritions": {
+      "calories": 81,
+      "fat": 0.0,
+      "sugar": 18.0,
+      "carbohydrates": 18.0,
+      "protein": 0.0
+    }
+  }, -->
 <template>
   <div :class="$style.outerContainer">
     <div :class="$style.mainColumn">
-      <div v-for="(fruit, index) in data" :key="index" :class="$style.cardWrap">
+      <Filter
+        v-model:calories.number="calories"
+        v-model:fat="fat"
+        v-model:sugar="sugar"
+        :carbohydrates
+        :protein
+      />
+      <div>
+        <p>total displayed: {{ fruitsToDisplay.length }}</p>
+      </div>
+      <div
+        v-for="(fruit, index) in fruitsToDisplay"
+        :key="index"
+        :class="$style.cardWrap"
+      >
         <FruitCard :fruit />
       </div>
     </div>

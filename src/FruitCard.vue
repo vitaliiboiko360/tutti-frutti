@@ -8,17 +8,36 @@ const { fruit } = defineProps(['fruit']);
       {{ fruit.name }}
     </p>
     <p></p>
+    <div :class="$style.detailsInfo">
+      <div :class="$style.firstColumn">
+        <p>family:</p>
+        <p>order:</p>
+        <p>genus:</p>
+      </div>
+      <div>
+        <p>{{ fruit.family }}</p>
+        <p>{{ fruit.order }}</p>
+        <p>{{ fruit.genus }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <style module>
+.firstColumn {
+  margin-right: 0.3rem;
+}
+.detailsInfo {
+  display: flex;
+}
 .fruitItem {
   padding-left: 1rem;
   padding-top: 1rem;
   margin-bottom: 2rem;
-  height: 18rem;
-  width: 16rem;
+  height: 14rem;
+  width: 14rem;
   --parent-border-color: #e5e5e5;
+  --color-snow: #fffafa;
   border: solid transparent;
   border-radius: 12px;
   border-width: 2px 2px 4px;
