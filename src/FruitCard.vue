@@ -1,13 +1,16 @@
 <script setup>
+import ButtonFavorites from './ButtonFavorites.vue';
 const { fruit } = defineProps(['fruit']);
 </script>
 
 <template>
   <div :class="$style.fruitItem">
-    <p>
-      {{ fruit.name }}
-    </p>
-    <p></p>
+    <div :class="$style.fruitHeader">
+      <p>
+        {{ fruit.name }}
+      </p>
+      <div :class="$style.favouritesBlock"><ButtonFavorites /></div>
+    </div>
     <div :class="$style.detailsInfo">
       <div :class="$style.firstColumn">
         <p>family:</p>
@@ -30,9 +33,20 @@ const { fruit } = defineProps(['fruit']);
 .detailsInfo {
   display: flex;
 }
+.fruitHeader {
+  display: flex;
+  justify-content: space-between;
+  p {
+    display: block;
+  }
+}
+.favouritesBlock {
+  align-self: flex-end;
+}
 .fruitItem {
   padding-left: 1rem;
   padding-top: 1rem;
+  padding-right: 1rem;
   margin-bottom: 2rem;
   height: 14rem;
   width: 14rem;
@@ -41,7 +55,6 @@ const { fruit } = defineProps(['fruit']);
   border: solid transparent;
   border-radius: 12px;
   border-width: 2px 2px 4px;
-  cursor: pointer;
   outline: 0;
   position: relative;
   touch-action: manipulation;
@@ -62,6 +75,10 @@ const { fruit } = defineProps(['fruit']);
     right: -2px;
     top: -2px;
     z-index: -1;
+  }
+
+  div div p {
+    margin: 0.5rem 0;
   }
 }
 </style>
