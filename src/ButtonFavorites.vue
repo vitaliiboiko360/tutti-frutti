@@ -1,14 +1,41 @@
 <script setup>
+import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
 import { ref } from 'vue';
-
-const isSelected = ref();
+const { isFavourite, id } = defineProps(['isFavourite', 'id']);
+const isSelected = ref(isFavourite);
 const refImg = ref();
 const onClick = () => {
   if (isSelected.value) {
     refImg.value.setAttribute('src', 'star.svg');
+
+    const favouritesIds = window.localStorage
+      .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
+      ?.split(' ')
+      ?.map((item) => {
+        return parseInt(item, 10);
+      });
+    const index = favouritesIds?.indexOf(id);
+    if (index != -1) {
+      favouritesIds.splice(index, 1);
+    }
+    window.localStorage.setItem(
+      LOCAL_STORAGE_FAVOURITES_KEY,
+      favouritesIds.join(' ')
+    );
     isSelected.value = false;
   } else {
     refImg.value.setAttribute('src', 'selectedStar.svg');
+    const favouritesIds = window.localStorage
+      .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
+      .split(' ')
+      .map((item) => {
+        return parseInt(item, 10);
+      });
+    favouritesIds.push(id);
+    window.localStorage.setItem(
+      LOCAL_STORAGE_FAVOURITES_KEY,
+      favouritesIds.join(' ')
+    );
     isSelected.value = true;
   }
 };
@@ -17,7 +44,10 @@ const onClick = () => {
 <template>
   <div :class="$style.favouritesBlock">
     <button @click="onClick" :class="$style.buttonFavourites">
-      <img :ref="(el) => (refImg = el)" :src="`star.svg`" />
+      <img
+        :ref="(el) => (refImg = el)"
+        :src="isSelected ? `selectedStar.svg` : `star.svg`"
+      />
     </button>
     <div :class="[$style.linkFavourites, { [$style.hidden]: !isSelected }]">
       <NuxtLink to="/favourites">favourites</NuxtLink>

@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="ts">
+import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
 import FruitCard from './FruitCard.vue';
 import Filter from './Filter.vue';
 const { data } = defineProps(['data']);
@@ -9,6 +10,16 @@ const sugar = defineModel('sugar');
 const carbohydrates = defineModel('carbohydrates');
 const protein = defineModel('protein');
 const fruitsToDisplay = ref(data);
+
+const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVOURITES_KEY);
+
+if (!storageValue) {
+  window.localStorage.setItem(LOCAL_STORAGE_FAVOURITES_KEY, '');
+}
+
+const favouritesIds = storageValue?.split(' ')?.map((item) => {
+  return parseInt(item, 10);
+});
 
 watch([calories, fat, sugar], () => {
   fruitsToDisplay.value = data.filter((fruit) => {
@@ -58,7 +69,7 @@ watch([calories, fat, sugar], () => {
         :key="index"
         :class="$style.cardWrap"
       >
-        <FruitCard :fruit />
+        <FruitCard :fruit :isFavourite="favouritesIds?.includes(fruit.id)" />
       </div>
     </div>
   </div>
