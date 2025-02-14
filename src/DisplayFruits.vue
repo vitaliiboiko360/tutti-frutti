@@ -11,16 +11,15 @@ const protein = defineModel('protein');
 const fruitsToDisplay = ref(data);
 
 watch([calories, fat, sugar], () => {
-  console.log(`${calories.value}  ${fat.value} ${sugar.value}`);
   fruitsToDisplay.value = data.filter((fruit) => {
     return (
-      (typeof calories.value == 'undefined'
+      (typeof calories.value == 'undefined' || calories.value === ''
         ? true
         : fruit.nutritions.calories <= calories.value) &&
-      (typeof fat.value == 'undefined'
+      (typeof fat.value == 'undefined' || fat.value === ''
         ? true
         : fruit.nutritions.fat <= fat.value) &&
-      (typeof sugar.value == 'undefined'
+      (typeof sugar.value == 'undefined' || sugar.value === ''
         ? true
         : fruit.nutritions.sugar <= sugar.value)
     );
@@ -52,7 +51,7 @@ watch([calories, fat, sugar], () => {
         :protein
       />
       <div>
-        <p>total displayed: {{ fruitsToDisplay.length }}</p>
+        <p>total fruits displayed: {{ fruitsToDisplay.length }}</p>
       </div>
       <div
         v-for="(fruit, index) in fruitsToDisplay"
