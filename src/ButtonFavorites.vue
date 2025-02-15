@@ -6,7 +6,6 @@ const isSelected = ref(isFavourite);
 const refImg = ref();
 const onClick = () => {
   if (isSelected.value) {
-    refImg.value.setAttribute('src', 'star.svg');
     const favouritesIds = window.localStorage
       .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
       ?.split(' ')
@@ -22,6 +21,13 @@ const onClick = () => {
       LOCAL_STORAGE_FAVOURITES_KEY,
       favouritesIds.join(' ')
     );
+    const event = new StorageEvent('storage', {
+      key: LOCAL_STORAGE_FAVOURITES_KEY,
+      newValue: favouritesIds.join(' '),
+    });
+    window.dispatchEvent(event);
+    console.log('dispatch setItem');
+    refImg.value.setAttribute('src', 'star.svg');
     isSelected.value = false;
   } else {
     refImg.value.setAttribute('src', 'selectedStar.svg');

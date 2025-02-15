@@ -1,10 +1,11 @@
 <script setup>
-const { groupName } = defineProps(['groupName']);
+const { groupName, isFavourites } = defineProps(['groupName', 'isFavourites']);
 </script>
 
 <template>
   <div :class="$style.headDisplay">
     <h3 v-if="groupName">Group {{ groupName }}</h3>
+    <h3 v-else-if="isFavourites">Your Favourites</h3>
     <h2 v-else>All Fruits</h2>
   </div>
 </template>

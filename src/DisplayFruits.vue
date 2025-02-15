@@ -3,7 +3,11 @@ import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
 import FruitCard from './FruitCard.vue';
 import Filter from './Filter.vue';
 import DisplayHead from './DisplayHead.vue';
-const { data, groupName } = defineProps(['data', 'groupName']);
+const {
+  data,
+  groupName,
+  disableFilter: isFavourites,
+} = defineProps(['data', 'groupName', 'disableFilter']);
 
 const caloriesFrom = defineModel('caloriesFrom');
 const fatFrom = defineModel('fatFrom');
@@ -86,10 +90,11 @@ watch(
 </script>
 
 <template>
-  <DisplayHead :groupName />
+  <DisplayHead :groupName :isFavourites />
   <div :class="$style.outerContainer">
     <div :class="$style.mainColumn">
       <Filter
+        v-if="!isFavourites"
         v-model:caloriesFrom.number="caloriesFrom"
         v-model:fatFrom.number="fatFrom"
         v-model:sugarFrom.number="sugarFrom"
