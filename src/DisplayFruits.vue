@@ -106,21 +106,34 @@ watch(
         v-model:carbohydratesTo.number="carbohydratesTo"
         v-model:proteinTo.number="proteinTo"
       />
-      <div>
+      <div :class="$style.totalLine">
         <p>total fruits displayed: {{ fruitsToDisplay?.length }}</p>
       </div>
-      <div
-        v-for="(fruit, index) in fruitsToDisplay"
-        :key="index"
-        :class="$style.cardWrap"
-      >
-        <FruitCard :fruit :isFavourite="favouritesIds?.includes(fruit.id)" />
+      <div :class="$style.fruitBlock">
+        <div
+          v-for="(fruit, index) in fruitsToDisplay"
+          :key="index"
+          :class="$style.cardWrap"
+        >
+          <FruitCard :fruit :isFavourite="favouritesIds?.includes(fruit.id)" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style module>
+.fruitBlock {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 53rem;
+}
+.totalLine {
+  display: flex;
+  justify-content: center;
+}
 .outerContainer {
   display: grid;
   grid-template-columns: 2rem auto 2rem;

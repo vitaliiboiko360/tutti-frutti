@@ -12,7 +12,7 @@ const proteinTo = defineModel('proteinTo');
 </script>
 
 <template>
-  <div>
+  <div :class="$style.outerFilter">
     <div :class="$style.filterPanel">
       <div :class="$style.filterItem">
         <label :class="$style.filterItemTitle">calories</label>
@@ -114,9 +114,13 @@ const proteinTo = defineModel('proteinTo');
 </template>
 
 <style module>
+.outerFilter {
+  display: flex;
+  justify-content: center;
+}
 .filterPanel {
   display: flex;
-  align-content: center;
+  flex-wrap: wrap;
   margin: 1rem 0;
 }
 .filterItem {

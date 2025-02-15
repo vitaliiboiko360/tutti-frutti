@@ -24,8 +24,6 @@ onBeforeMount(() => {
     LOCAL_STORAGE_FAVOURITES_KEY
   );
 
-  console.log(`onMounted storageValue == ${storageValue}`);
-
   if (!storageValue) {
     window.localStorage.setItem(LOCAL_STORAGE_FAVOURITES_KEY, '');
   }
