@@ -17,9 +17,12 @@ if (!storageValue) {
   window.localStorage.setItem(LOCAL_STORAGE_FAVOURITES_KEY, '');
 }
 
-const favouritesIds = storageValue?.split(' ')?.map((item) => {
-  return parseInt(item, 10);
-});
+const favouritesIds = storageValue
+  ?.split(' ')
+  ?.map((i) => {
+    return parseInt(i, 10);
+  })
+  .filter((i) => !isNaN(i));
 
 watch([calories, fat, sugar], () => {
   fruitsToDisplay.value = data.filter((fruit) => {

@@ -11,9 +11,10 @@ const onClick = () => {
     const favouritesIds = window.localStorage
       .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
       ?.split(' ')
-      ?.map((item) => {
-        return parseInt(item, 10);
-      });
+      ?.map((i) => {
+        return parseInt(i, 10);
+      })
+      .filter((i) => !isNaN(i));
     const index = favouritesIds?.indexOf(id);
     if (index != -1) {
       favouritesIds.splice(index, 1);
@@ -28,9 +29,10 @@ const onClick = () => {
     const favouritesIds = window.localStorage
       .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
       .split(' ')
-      .map((item) => {
-        return parseInt(item, 10);
-      });
+      .map((i) => {
+        return parseInt(i, 10);
+      })
+      .filter((i) => !isNaN(i));
     favouritesIds.push(id);
     window.localStorage.setItem(
       LOCAL_STORAGE_FAVOURITES_KEY,
