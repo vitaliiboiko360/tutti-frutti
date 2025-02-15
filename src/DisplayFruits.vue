@@ -4,11 +4,17 @@ import FruitCard from './FruitCard.vue';
 import Filter from './Filter.vue';
 const { data } = defineProps(['data']);
 
-const calories = defineModel('calories', { number: true });
-const fat = defineModel('fat');
-const sugar = defineModel('sugar');
-const carbohydrates = defineModel('carbohydrates');
-const protein = defineModel('protein');
+const caloriesFrom = defineModel('caloriesFrom');
+const fatFrom = defineModel('fatFrom');
+const sugarFrom = defineModel('sugarFrom');
+const carbohydratesFrom = defineModel('carbohydratesFrom');
+const proteinFrom = defineModel('proteinFrom');
+const caloriesTo = defineModel('caloriesTo');
+const fatTo = defineModel('fatTo');
+const sugarTo = defineModel('sugarTo');
+const carbohydratesTo = defineModel('carbohydratesTo');
+const proteinTo = defineModel('proteinTo');
+
 const fruitsToDisplay = ref(data);
 
 const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVOURITES_KEY);
@@ -24,45 +30,74 @@ const favouritesIds = storageValue
   })
   .filter((i) => !isNaN(i));
 
-watch([calories, fat, sugar], () => {
-  fruitsToDisplay.value = data.filter((fruit) => {
-    return (
-      (typeof calories.value == 'undefined' || calories.value === ''
-        ? true
-        : fruit.nutritions.calories <= calories.value) &&
-      (typeof fat.value == 'undefined' || fat.value === ''
-        ? true
-        : fruit.nutritions.fat <= fat.value) &&
-      (typeof sugar.value == 'undefined' || sugar.value === ''
-        ? true
-        : fruit.nutritions.sugar <= sugar.value)
-    );
-  });
-});
+watch(
+  [
+    caloriesTo,
+    fatTo,
+    sugarTo,
+    carbohydratesTo,
+    proteinTo,
+    caloriesFrom,
+    fatFrom,
+    sugarFrom,
+    carbohydratesFrom,
+    proteinFrom,
+  ],
+  () => {
+    fruitsToDisplay.value = data.filter((fruit) => {
+      return (
+        (typeof caloriesFrom.value == 'undefined' || caloriesFrom.value === ''
+          ? true
+          : fruit.nutritions.calories >= caloriesFrom.value) &&
+        (typeof fatFrom.value == 'undefined' || fatFrom.value === ''
+          ? true
+          : fruit.nutritions.fat >= fatFrom.value) &&
+        (typeof sugarFrom.value == 'undefined' || sugarFrom.value === ''
+          ? true
+          : fruit.nutritions.sugar >= sugarFrom.value) &&
+        (typeof carbohydratesFrom.value == 'undefined' ||
+        carbohydratesFrom.value === ''
+          ? true
+          : fruit.nutritions.carbohydrates >= carbohydratesFrom.value) &&
+        (typeof proteinFrom.value == 'undefined' || proteinFrom.value === ''
+          ? true
+          : fruit.nutritions.protein >= proteinFrom.value) &&
+        (typeof caloriesTo.value == 'undefined' || caloriesTo.value === ''
+          ? true
+          : fruit.nutritions.calories <= caloriesTo.value) &&
+        (typeof fatTo.value == 'undefined' || fatTo.value === ''
+          ? true
+          : fruit.nutritions.fat <= fatTo.value) &&
+        (typeof sugarTo.value == 'undefined' || sugarTo.value === ''
+          ? true
+          : fruit.nutritions.sugar <= sugarTo.value) &&
+        (typeof carbohydratesTo.value == 'undefined' ||
+        carbohydratesTo.value === ''
+          ? true
+          : fruit.nutritions.carbohydrates <= carbohydratesTo.value) &&
+        (typeof proteinTo.value == 'undefined' || proteinTo.value === ''
+          ? true
+          : fruit.nutritions.protein <= proteinTo.value)
+      );
+    });
+  }
+);
 </script>
-<!-- {
-    "name": "Persimmon",
-    "id": 52,
-    "family": "Ebenaceae",
-    "order": "Rosales",
-    "genus": "Diospyros",
-    "nutritions": {
-      "calories": 81,
-      "fat": 0.0,
-      "sugar": 18.0,
-      "carbohydrates": 18.0,
-      "protein": 0.0
-    }
-  }, -->
+
 <template>
   <div :class="$style.outerContainer">
     <div :class="$style.mainColumn">
       <Filter
-        v-model:calories.number="calories"
-        v-model:fat="fat"
-        v-model:sugar="sugar"
-        :carbohydrates
-        :protein
+        v-model:caloriesFrom.number="caloriesFrom"
+        v-model:fatFrom.number="fatFrom"
+        v-model:sugarFrom.number="sugarFrom"
+        v-model:carbohydratesFrom.number="carbohydratesFrom"
+        v-model:proteinFrom.number="proteinFrom"
+        v-model:caloriesTo.number="caloriesTo"
+        v-model:fatTo.number="fatTo"
+        v-model:sugarTo.number="sugarTo"
+        v-model:carbohydratesTo.number="carbohydratesTo"
+        v-model:proteinTo.number="proteinTo"
       />
       <div>
         <p>total fruits displayed: {{ fruitsToDisplay.length }}</p>

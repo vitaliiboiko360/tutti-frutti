@@ -7,7 +7,6 @@ const refImg = ref();
 const onClick = () => {
   if (isSelected.value) {
     refImg.value.setAttribute('src', 'star.svg');
-
     const favouritesIds = window.localStorage
       .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
       ?.split(' ')
