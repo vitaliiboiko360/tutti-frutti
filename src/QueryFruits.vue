@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { queryFruits } from './etc';
 const { groupName } = defineProps(['groupName']);
 const { isLoading, isError, data, error } = useQuery({
-  queryKey: [`fruits`],
+  queryKey: [`fruits-${groupName}`],
   queryFn: async () => {
     let data = await queryFruits();
     if (groupName) {

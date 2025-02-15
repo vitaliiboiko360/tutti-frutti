@@ -6,6 +6,6 @@ const { groupName } = defineProps(['groupName']);
 
 <template>
   <QueryFruits v-slot="slotProps" :groupName
-    ><DisplayFruits :data="slotProps.data"
+    ><DisplayFruits :data="slotProps.data" :groupName
   /></QueryFruits>
 </template>

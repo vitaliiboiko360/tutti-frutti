@@ -2,7 +2,8 @@
 import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
 import FruitCard from './FruitCard.vue';
 import Filter from './Filter.vue';
-const { data } = defineProps(['data']);
+import DisplayHead from './DisplayHead.vue';
+const { data, groupName } = defineProps(['data', 'groupName']);
 
 const caloriesFrom = defineModel('caloriesFrom');
 const fatFrom = defineModel('fatFrom');
@@ -85,6 +86,7 @@ watch(
 </script>
 
 <template>
+  <DisplayHead :groupName />
   <div :class="$style.outerContainer">
     <div :class="$style.mainColumn">
       <Filter

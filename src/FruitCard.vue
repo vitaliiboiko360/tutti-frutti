@@ -1,13 +1,6 @@
 <script setup>
 import ButtonFavorites from './ButtonFavorites.vue';
 const { fruit, isFavourite } = defineProps(['fruit', 'isFavourite']);
-const onClick = async () => {
-  await navigateTo({
-    name: 'group',
-    replace: true,
-    query: { name: fruit.family },
-  });
-};
 </script>
 
 <template>
@@ -28,7 +21,14 @@ const onClick = async () => {
       </div>
       <div>
         <p>
-          <a :href="`/group?name=${fruit.family}`">{{ fruit.family }}</a>
+          <NuxtLink
+            :to="{
+              name: 'group',
+              replace: true,
+              query: { name: fruit.family },
+            }"
+            >{{ fruit.family }}</NuxtLink
+          >
         </p>
         <!-- <p>{{ fruit.order }}</p>
         <p>{{ fruit.genus }}</p> -->
