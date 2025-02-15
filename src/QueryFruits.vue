@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { useQuery } from '@tanstack/vue-query';
 import { queryFruits } from './etc';
-
+const { groupName } = defineProps(['groupName']);
 const { isLoading, isError, data, error } = useQuery({
-  queryKey: ['fruits'],
-  queryFn: queryFruits,
+  queryKey: [`fruits`],
+  queryFn: async () => {
+    let data = await queryFruits();
+    if (groupName) {
+      data = data.filter((fruit) => {
+        return fruit.family == groupName;
+      });
+    }
+    return data;
+  },
 });
 </script>
 

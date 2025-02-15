@@ -1,6 +1,13 @@
 <script setup>
 import ButtonFavorites from './ButtonFavorites.vue';
 const { fruit, isFavourite } = defineProps(['fruit', 'isFavourite']);
+const onClick = async () => {
+  await navigateTo({
+    name: 'group',
+    replace: true,
+    query: { name: fruit.family },
+  });
+};
 </script>
 
 <template>
@@ -20,7 +27,9 @@ const { fruit, isFavourite } = defineProps(['fruit', 'isFavourite']);
         <p>genus:</p> -->
       </div>
       <div>
-        <p>{{ fruit.family }}</p>
+        <p>
+          <a :href="`/group?name=${fruit.family}`">{{ fruit.family }}</a>
+        </p>
         <!-- <p>{{ fruit.order }}</p>
         <p>{{ fruit.genus }}</p> -->
       </div>

@@ -15,8 +15,6 @@ const sugarTo = defineModel('sugarTo');
 const carbohydratesTo = defineModel('carbohydratesTo');
 const proteinTo = defineModel('proteinTo');
 
-const fruitsToDisplay = ref(data);
-
 const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVOURITES_KEY);
 
 if (!storageValue) {
@@ -29,6 +27,8 @@ const favouritesIds = storageValue
     return parseInt(i, 10);
   })
   .filter((i) => !isNaN(i));
+
+const fruitsToDisplay = ref(data);
 
 watch(
   [
@@ -100,7 +100,7 @@ watch(
         v-model:proteinTo.number="proteinTo"
       />
       <div>
-        <p>total fruits displayed: {{ fruitsToDisplay.length }}</p>
+        <p>total fruits displayed: {{ fruitsToDisplay?.length }}</p>
       </div>
       <div
         v-for="(fruit, index) in fruitsToDisplay"
