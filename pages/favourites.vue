@@ -1,5 +1,10 @@
-<script setup></script>
+<script setup>
+import FruitsFavouritesEntryPoint from '~/src/FruitsFavouritesEntryPoint.vue';
+import QueryFruits from '~/src/QueryFruits.vue';
+</script>
 
 <template>
-  <p>your favourites here</p>
+  <QueryFruits v-slot="slotProps">
+    <FruitsFavouritesEntryPoint :data="slotProps.data" />
+  </QueryFruits>
 </template>
