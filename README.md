@@ -56,7 +56,7 @@ There are other projects of mine that you could see here at Github where code qu
 
 **Important:**
 
-Solution hasn't used your backend, exactly as you pointed out, because of CORS.
+Solution hasn't used your backend, exactly as you've pointed out, because of CORS.
 
 You shouldn't ask your users to install any third-party libraries/extensions/additional software in order to use your services. There are many reasons against it, security, convenience, usability to name a few.
 
