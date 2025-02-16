@@ -1,11 +1,17 @@
-# testing fruits
+# testing fruits  
+
 
 Tech stack:
 
 - Vue 3+ Composition API
 - Nuxt 3
 - Tanstack Query
-- Typescript
+- Typescript  
+
+![demo](https://github.com/vitaliiboiko360/tutti-frutti/blob/main/demo/demo-video.gif)
+
+### Link to deployed solution  
+[https://tutti-fruitti.vercel.app/](https://tutti-fruitti.vercel.app/)  
 
 What's has been implemented:
 
