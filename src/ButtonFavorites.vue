@@ -4,6 +4,18 @@ import { ref } from 'vue';
 const { isFavorite, id } = defineProps(['isFavorite', 'id']);
 const isSelected = ref(isFavorite);
 const refImg = ref();
+
+// this will need to be called for storage event to be propogated
+// on the same browsing context
+// read more at https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event
+const dispatchStorageEvent = (favoritesIds) => {
+  const event = new StorageEvent('storage', {
+    key: LOCAL_STORAGE_FAVORITES_KEY,
+    newValue: favoritesIds.join(' '),
+  });
+  window.dispatchEvent(event);
+};
+
 const onClick = () => {
   if (isSelected.value) {
     const favoritesIds = window.localStorage
@@ -21,12 +33,7 @@ const onClick = () => {
       LOCAL_STORAGE_FAVORITES_KEY,
       favoritesIds.join(' ')
     );
-    const event = new StorageEvent('storage', {
-      key: LOCAL_STORAGE_FAVORITES_KEY,
-      newValue: favoritesIds.join(' '),
-    });
-    window.dispatchEvent(event);
-    console.log('dispatch setItem');
+    dispatchStorageEvent(favoritesIds);
     refImg.value.setAttribute('src', 'star.svg');
     isSelected.value = false;
   } else {
@@ -43,6 +50,7 @@ const onClick = () => {
       LOCAL_STORAGE_FAVORITES_KEY,
       favoritesIds.join(' ')
     );
+    dispatchStorageEvent(favoritesIds);
     isSelected.value = true;
   }
 };

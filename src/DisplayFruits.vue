@@ -20,18 +20,36 @@ const sugarTo = defineModel('sugarTo');
 const carbohydratesTo = defineModel('carbohydratesTo');
 const proteinTo = defineModel('proteinTo');
 
-const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY);
+const favoritesIds = ref([]);
 
-if (!storageValue) {
-  window.localStorage.setItem(LOCAL_STORAGE_FAVORITES_KEY, '');
-}
+const onStorage = (event) => {
+  if (event.key != LOCAL_STORAGE_FAVORITES_KEY) {
+    return;
+  }
+  favoritesIds.value = event.newValue
+    ?.split(' ')
+    ?.map((i) => {
+      return parseInt(i, 10);
+    })
+    ?.filter((i) => !isNaN(i));
+};
 
-const favoritesIds = storageValue
-  ?.split(' ')
-  ?.map((i) => {
-    return parseInt(i, 10);
-  })
-  .filter((i) => !isNaN(i));
+onBeforeMount(() => {
+  const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY);
+
+  if (!storageValue) {
+    window.localStorage.setItem(LOCAL_STORAGE_FAVORITES_KEY, '');
+  }
+
+  favoritesIds.value = storageValue
+    ?.split(' ')
+    ?.map((i) => {
+      return parseInt(i, 10);
+    })
+    ?.filter((i) => !isNaN(i));
+
+  window.addEventListener('storage', onStorage);
+});
 
 const fruitsToDisplay = ref(data);
 
@@ -87,6 +105,10 @@ watch(
     });
   }
 );
+
+onUnmounted(() => {
+  window.removeEventListener('storage', onStorage);
+});
 </script>
 
 <template>
