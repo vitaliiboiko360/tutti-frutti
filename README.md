@@ -1,17 +1,17 @@
-# testing fruits  
-
+# testing fruits
 
 Tech stack:
 
 - Vue 3+ Composition API
 - Nuxt 3
 - Tanstack Query
-- Typescript  
+- Typescript
 
 ![demo](https://github.com/vitaliiboiko360/tutti-frutti/blob/main/demo/demo-video.gif)
 
-### Link to deployed solution  
-[https://tutti-fruitti.vercel.app/](https://tutti-fruitti.vercel.app/)  
+### Link to deployed solution
+
+[https://tutti-fruitti.vercel.app/](https://tutti-fruitti.vercel.app/)
 
 What's has been implemented:
 
@@ -53,3 +53,15 @@ It wasn't developed to show flawless code, although code maintainability and rea
 According to SOLID S-principle, all localStorage related code, ideally has to be decoupled from the rest. Some repetitive code could be extracted into a universal function. Filter code is tightly integrated with Display logic, it complicates their reuse.
 
 There are other projects of mine that you could see here at Github where code quality is maintained a lot more thoroughly.
+
+**Important:**
+
+Solution hasn't used your backend, exactly as you pointed out, because of CORS.
+
+You shouldn't ask your users to install any third-party libraries/extensions/additional software in order to use your services. There are many reasons against it, security, convenience, usability to name a few.
+
+If you foresaw the problem with CORS, why didn't you add all the necessary Headers to allow me to use your backend API, as you're owning that backend API in the first place.
+
+Anyway, I've downloaded data, and put it locally along with the solution. For group pages it just selects proper records to display.
+
+There are some errors in your data too, it breaks grouping, some values have untrimmed spaces.
