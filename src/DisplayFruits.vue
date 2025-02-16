@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
+import { LOCAL_STORAGE_FAVORITES_KEY } from './constants';
 import FruitCard from './FruitCard.vue';
 import Filter from './Filter.vue';
 import DisplayHead from './DisplayHead.vue';
 const {
   data,
   groupName,
-  disableFilter: isFavourites,
+  disableFilter: isFavorites,
 } = defineProps(['data', 'groupName', 'disableFilter']);
 
 const caloriesFrom = defineModel('caloriesFrom');
@@ -20,13 +20,13 @@ const sugarTo = defineModel('sugarTo');
 const carbohydratesTo = defineModel('carbohydratesTo');
 const proteinTo = defineModel('proteinTo');
 
-const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVOURITES_KEY);
+const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY);
 
 if (!storageValue) {
-  window.localStorage.setItem(LOCAL_STORAGE_FAVOURITES_KEY, '');
+  window.localStorage.setItem(LOCAL_STORAGE_FAVORITES_KEY, '');
 }
 
-const favouritesIds = storageValue
+const favoritesIds = storageValue
   ?.split(' ')
   ?.map((i) => {
     return parseInt(i, 10);
@@ -90,11 +90,11 @@ watch(
 </script>
 
 <template>
-  <DisplayHead :groupName :isFavourites />
+  <DisplayHead :groupName :isFavorites />
   <div :class="$style.outerContainer">
     <div :class="$style.mainColumn">
       <Filter
-        v-if="!isFavourites"
+        v-if="!isFavorites"
         v-model:caloriesFrom.number="caloriesFrom"
         v-model:fatFrom.number="fatFrom"
         v-model:sugarFrom.number="sugarFrom"
@@ -115,7 +115,7 @@ watch(
           :key="index"
           :class="$style.cardWrap"
         >
-          <FruitCard :fruit :isFavourite="favouritesIds?.includes(fruit.id)" />
+          <FruitCard :fruit :isFavorite="favoritesIds?.includes(fruit.id)" />
         </div>
       </div>
     </div>

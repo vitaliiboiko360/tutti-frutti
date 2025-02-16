@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
+import { LOCAL_STORAGE_FAVORITES_KEY } from './constants';
 import DisplayFruits from './DisplayFruits.vue';
 
 const { data } = defineProps(['data']);
 
-const favouritesIds = ref([]);
+const favoritesIds = ref([]);
 
 const onStorage = (event) => {
-  if (event.key != LOCAL_STORAGE_FAVOURITES_KEY) {
+  if (event.key != LOCAL_STORAGE_FAVORITES_KEY) {
     return;
   }
-  favouritesIds.value = event.newValue
+  favoritesIds.value = event.newValue
     ?.split(' ')
     ?.map((i) => {
       return parseInt(i, 10);
@@ -20,15 +20,13 @@ const onStorage = (event) => {
 };
 
 onBeforeMount(() => {
-  const storageValue = window.localStorage.getItem(
-    LOCAL_STORAGE_FAVOURITES_KEY
-  );
+  const storageValue = window.localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY);
 
   if (!storageValue) {
-    window.localStorage.setItem(LOCAL_STORAGE_FAVOURITES_KEY, '');
+    window.localStorage.setItem(LOCAL_STORAGE_FAVORITES_KEY, '');
   }
 
-  favouritesIds.value = storageValue
+  favoritesIds.value = storageValue
     ?.split(' ')
     ?.map((i) => {
       return parseInt(i, 10);
@@ -38,22 +36,22 @@ onBeforeMount(() => {
   window.addEventListener('storage', onStorage);
 });
 
-const favourites = ref();
+const favorites = ref();
 
 watch(
-  [favouritesIds],
+  [favoritesIds],
   () => {
-    favourites.value = data.filter((fruit) => {
-      return favouritesIds.value.includes(fruit.id);
+    favorites.value = data.filter((fruit) => {
+      return favoritesIds.value.includes(fruit.id);
     });
     console.log(`watch data.length = ${data.length}`);
   },
   { flush: 'sync' }
 );
 
-if (favouritesIds.value?.length > 0) {
-  favourites.value = data.filter((fruit) => {
-    return favouritesIds.value.includes(fruit.id);
+if (favoritesIds.value?.length > 0) {
+  favorites.value = data.filter((fruit) => {
+    return favoritesIds.value.includes(fruit.id);
   });
 }
 
@@ -64,8 +62,8 @@ onUnmounted(() => {
 
 <template>
   <DisplayFruits
-    :data="favourites"
+    :data="favorites"
     :disableFilter="true"
-    :key="favourites.length"
+    :key="favorites.length"
   ></DisplayFruits>
 </template>

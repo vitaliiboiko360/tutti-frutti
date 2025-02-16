@@ -1,6 +1,6 @@
 <script setup>
 import ButtonFavorites from './ButtonFavorites.vue';
-const { fruit, isFavourite } = defineProps(['fruit', 'isFavourite']);
+const { fruit, isFavorite } = defineProps(['fruit', 'isFavorite']);
 </script>
 
 <template>
@@ -9,8 +9,8 @@ const { fruit, isFavourite } = defineProps(['fruit', 'isFavourite']);
       <p>
         {{ fruit.name }}
       </p>
-      <div :class="$style.favouritesBlock">
-        <ButtonFavorites :isFavourite :id="fruit.id" />
+      <div :class="$style.favoritesBlock">
+        <ButtonFavorites :isFavorite :id="fruit.id" />
       </div>
     </div>
     <div :class="$style.detailsInfo">
@@ -70,7 +70,7 @@ const { fruit, isFavourite } = defineProps(['fruit', 'isFavourite']);
     display: block;
   }
 }
-.favouritesBlock {
+.favoritesBlock {
   align-self: flex-end;
 }
 .nutritionsDetails {

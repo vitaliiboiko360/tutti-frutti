@@ -1,29 +1,29 @@
 <script setup>
-import { LOCAL_STORAGE_FAVOURITES_KEY } from './constants';
+import { LOCAL_STORAGE_FAVORITES_KEY } from './constants';
 import { ref } from 'vue';
-const { isFavourite, id } = defineProps(['isFavourite', 'id']);
-const isSelected = ref(isFavourite);
+const { isFavorite, id } = defineProps(['isFavorite', 'id']);
+const isSelected = ref(isFavorite);
 const refImg = ref();
 const onClick = () => {
   if (isSelected.value) {
-    const favouritesIds = window.localStorage
-      .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
+    const favoritesIds = window.localStorage
+      .getItem(LOCAL_STORAGE_FAVORITES_KEY)
       ?.split(' ')
       ?.map((i) => {
         return parseInt(i, 10);
       })
       .filter((i) => !isNaN(i));
-    const index = favouritesIds?.indexOf(id);
+    const index = favoritesIds?.indexOf(id);
     if (index != -1) {
-      favouritesIds.splice(index, 1);
+      favoritesIds.splice(index, 1);
     }
     window.localStorage.setItem(
-      LOCAL_STORAGE_FAVOURITES_KEY,
-      favouritesIds.join(' ')
+      LOCAL_STORAGE_FAVORITES_KEY,
+      favoritesIds.join(' ')
     );
     const event = new StorageEvent('storage', {
-      key: LOCAL_STORAGE_FAVOURITES_KEY,
-      newValue: favouritesIds.join(' '),
+      key: LOCAL_STORAGE_FAVORITES_KEY,
+      newValue: favoritesIds.join(' '),
     });
     window.dispatchEvent(event);
     console.log('dispatch setItem');
@@ -31,17 +31,17 @@ const onClick = () => {
     isSelected.value = false;
   } else {
     refImg.value.setAttribute('src', 'selectedStar.svg');
-    const favouritesIds = window.localStorage
-      .getItem(LOCAL_STORAGE_FAVOURITES_KEY)
+    const favoritesIds = window.localStorage
+      .getItem(LOCAL_STORAGE_FAVORITES_KEY)
       .split(' ')
       .map((i) => {
         return parseInt(i, 10);
       })
       .filter((i) => !isNaN(i));
-    favouritesIds.push(id);
+    favoritesIds.push(id);
     window.localStorage.setItem(
-      LOCAL_STORAGE_FAVOURITES_KEY,
-      favouritesIds.join(' ')
+      LOCAL_STORAGE_FAVORITES_KEY,
+      favoritesIds.join(' ')
     );
     isSelected.value = true;
   }
@@ -49,21 +49,21 @@ const onClick = () => {
 </script>
 
 <template>
-  <div :class="$style.favouritesBlock">
-    <button @click="onClick" :class="$style.buttonFavourites">
+  <div :class="$style.favoritesBlock">
+    <button @click="onClick" :class="$style.buttonFavorites">
       <img
         :ref="(el) => (refImg = el)"
         :src="isSelected ? `selectedStar.svg` : `star.svg`"
       />
     </button>
-    <div :class="[$style.linkFavourites, { [$style.hidden]: !isSelected }]">
-      <NuxtLink to="/favourites">favourites</NuxtLink>
+    <div :class="[$style.linkFavorites, { [$style.hidden]: !isSelected }]">
+      <NuxtLink to="/favorites">favorites</NuxtLink>
     </div>
   </div>
 </template>
 
 <style module>
-.favouritesBlock {
+.favoritesBlock {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -72,12 +72,12 @@ const onClick = () => {
 .hidden {
   display: none;
 }
-.linkFavourites {
+.linkFavorites {
   position: absolute;
   right: -0.3rem;
   bottom: -1rem;
 }
-.buttonFavourites {
+.buttonFavorites {
   cursor: pointer;
   border: 0;
   background-color: transparent;
