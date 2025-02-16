@@ -26,10 +26,10 @@ What's has been implemented:
 
    - group link to a corresponding group page
 
-   * star button to add to favourites
+   * star button to add to favorites
 
-     - press button, card added to favourites and link to favourites appears below
-     - press button again and card removed from favourites, link disappears
+     - press button, card added to favorites and link to favorites appears below
+     - press button again and card removed from favorites, link disappears
 
 3. Group Page (by family value)
 
@@ -38,11 +38,11 @@ What's has been implemented:
    - filter and grid display has been reused from the main page 1.
    - fruit card has been reused from 2. with the same functionality
 
-4. Favourites page
+4. Favorites page
 
-   - favourites page displays cards that added using star button on a fruit card
-   - fruit card has the same functionality, clicking on start button will remove it from the favourites
-   - list of favourites fruits are stored using localStorage, the list retained between page reloads
+   - favorites page displays cards that added using star button on a fruit card
+   - fruit card has the same functionality, clicking on start button will remove it from the favorites
+   - list of favorites fruits are stored using localStorage, the list retained between page reloads
 
 **Comments on solution:**
 
