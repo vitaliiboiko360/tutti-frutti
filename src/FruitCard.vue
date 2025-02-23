@@ -24,7 +24,6 @@ const { fruit, isFavorite } = defineProps(['fruit', 'isFavorite']);
           <NuxtLink
             :to="{
               name: 'group',
-              replace: true,
               query: { name: fruit.family },
             }"
             >{{ fruit.family }}</NuxtLink
